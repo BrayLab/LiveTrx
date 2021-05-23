@@ -1,0 +1,13 @@
+Comparison	Labels	Region	Colors	Palette	XLim	YLim	Heatmaps	EarlySO	Notes
+m5m8peve gap43mCh,spiderGFP hisRFP	gap43,spider	2,1	9,10	default	0,60	1100	3000	NaN	memb100
+NiGFP DlmSca,NiGFP DlmSca	N,Dl	1,2	3,11	default	0,60	1100	3000	NaN	memb100
+shgGFP DlmSca,shgGFP DlmSca	shg,Dl	1,2	3,11	default	0,60	1100	3000	NaN	memb100
+m5m8peve kukPE ctr,m5m8peve kukPE	WT,kuk	MSE	1,13	default	0,50	600	3000	NaN	M&H,bursting
+m5m8peve kukPE ctr,m5m8peve kukPE	WT,kuk		1,13	default	0,50	1100	3000	NaN	3D
+Nup107GFP,Nup107GFP kuk	WT,kuk		1,13	default	0,50	1100	3000	NaN	3D
+m5m8peveIII,m5m8peveIII slam:CTG:CTG,m5m8peveIII slam	+/+,slam^+/+/-,slam^-/-	MSE	1,4,3	default	0,50	600	3000	NaN	M&H,memb011
+m5m8peveIII,m5m8peveIII slam:CTG:CTG	+/+,slam^+/+/-	MSE	1,4	default	0,60	1100	3000	NaN	memb001
+m5m8peve DlmSca,slam:+ DlmSca,slam DlmSca	+,slam^+/+/-,slam^-/-	2,1,1	1,12,11	default	0,60	1100	3000	NaN	memb100
+m5m8peveIII,m5m8peveIII Nullo:+,m5m8peveIII Nullo	+/+,nullo^+/+/-,nullo^-	MSE	1,7,6	default	0,50	600	3000	NaN	M&H,memb001
+m5m8peveIII wRi,m5m8peveIII aCatRi	wRi,aCatRi	MSE	1,11	default	0,50	1100	4000	30	M&H,bursting,memb011
+m8 wRi,m8 aCatRi	wRi,aCatRi	MSE	2,12	default	0,50	1100	4000	30	NaN
