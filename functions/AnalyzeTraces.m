@@ -287,11 +287,11 @@ function[Properties] = AnalyzeTraces(varargin)
     TimeScale = ([1: Frames] - nc14+Delay).*TimeRes./60;
     Limits = [min((1 - nc14+Delay).*TimeRes./60,1), 90];
     
-    PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected.ps']);
+    PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected.ps'],{});
     if Spots > 0
-        PlotSelected(Selected, TimeScale,Baseline,MaxFGauss,MeasuredF,OnOff,Properties,BurstPeak,TimeRes,Bits+2,nc14, Delay,Limits,[PathToSave,'_selected_spots.ps']);
+        PlotSelected(Selected, TimeScale,Baseline,MaxFGauss,MeasuredF,OnOff,Properties,BurstPeak,TimeRes,Bits+2,nc14, Delay,Limits,[PathToSave,'_selected_spots.ps'],{});
         if Spots == 2
-            PlotSelected(Selected, TimeScale,Baseline,MaxFGauss,MaxFGauss2,OnOff,Properties,BurstPeak,TimeRes,Bits+2,nc14, Delay,Limits,[PathToSave,'_selected_2spots.ps']);
+            PlotSelected(Selected, TimeScale,Baseline,MaxFGauss,MaxFGauss2,OnOff,Properties,BurstPeak,TimeRes,Bits+2,nc14, Delay,Limits,[PathToSave,'_selected_2spots.ps'],{});
         end
     end
     
@@ -537,7 +537,7 @@ function[Properties] = AnalyzeTraces(varargin)
         ColorArg = [cmap_3(1,:);cmap_3(1,:);cmap_3(1,:);cmap_3(1,:);...
             1,0,0;1,0,0;1,0,0;1,0,0];    
         [BurstNum,BurstLength,BurstPeriod,BurstPeak,BurstMax,OffTimeAll, BurstSize] = CountBursts(MeasuredF,OnOff, Selected,minOn,SplitEarlyF,TimeRes);
-        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps']);
+        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps'],{});
         PlotBurstingProp(BurstNum,BurstLength,BurstPeriod,TimeRes,[PathToSave,'_selected_plots_',VarName,'.ps'])
         Fig = figure('PaperSize',[50 50],'PaperUnits','inches','resize','on', 'visible','off');
         Fig = PlotMeans(MeasuredF,TimeScale,Selected,Properties,Bits,ColorArg,Fig,0,[Nickname,' ',num2str(Rep),' ',VarName],[-50,90], [min(0,min(MeasuredF(:))), max(2^Bits-1,max(MeasuredF(:)))]);
@@ -550,7 +550,7 @@ function[Properties] = AnalyzeTraces(varargin)
         ColorArg = [cmap_3(2,:);cmap_3(2,:);cmap_3(2,:);cmap_3(2,:);...
             1,0,0;1,0,0;1,0,0;1,0,0];
         [BurstNum,BurstLength,BurstPeriod,BurstPeak,BurstMax,OffTimeAll,BurstSize] = CountBursts(MeasuredF,OnOff, Selected,minOn,SplitEarlyF,TimeRes);
-        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps']);
+        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps'],{});
         PlotBurstingProp(BurstNum,BurstLength,BurstPeriod,TimeRes,[PathToSave,'_selected_plots_',VarName,'.ps'])
         Fig = figure('PaperSize',[50 50],'PaperUnits','inches','resize','on', 'visible','off');
         Fig = PlotMeans(MeasuredF,TimeScale,Selected,Properties,Bits,ColorArg,Fig,0,[Nickname,' ',num2str(Rep),' ',VarName],[-50,90], [min(0,min(MeasuredF(:))), max(2^Bits-1,max(MeasuredF(:)))]);
@@ -563,7 +563,7 @@ function[Properties] = AnalyzeTraces(varargin)
         ColorArg = [cmap_3(3,:);cmap_3(3,:);cmap_3(3,:);cmap_3(3,:);...
             1,0,0;1,0,0;1,0,0;1,0,0];
         [BurstNum,BurstLength,BurstPeriod,BurstPeak,BurstMax,OffTimeAll,BurstSize] = CountBursts(MeasuredF,OnOff, Selected,minOn,SplitEarlyF,TimeRes);
-        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps']);
+        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps'],{});
         PlotBurstingProp(BurstNum,BurstLength,BurstPeriod,TimeRes,[PathToSave,'_selected_plots_',VarName,'.ps'])
         Fig = figure('PaperSize',[50 50],'PaperUnits','inches','resize','on', 'visible','off');
         Fig = PlotMeans(MeasuredF,TimeScale,Selected,Properties,Bits,ColorArg,Fig,0,[Nickname,' ',num2str(Rep),' ',VarName],[-50,90], [min(0,min(MeasuredF(:))), max(2^Bits-1,max(MeasuredF(:)))]);
@@ -576,7 +576,7 @@ function[Properties] = AnalyzeTraces(varargin)
         ColorArg = [cmap_3(4,:);cmap_3(4,:);cmap_3(4,:);cmap_3(4,:);...
             1,0,0;1,0,0;1,0,0;1,0,0];
         [BurstNum,BurstLength,BurstPeriod,BurstPeak,BurstMax,OffTimeAll,BurstSize] = CountBursts(MeasuredF,OnOff, Selected,minOn,SplitEarlyF,TimeRes);
-        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps']);
+        PlotSelected(Selected, TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathToSave,'_selected_',VarName,'.ps'],{});
         PlotBurstingProp(BurstNum,BurstLength,BurstPeriod,TimeRes,[PathToSave,'_selected_plots_',VarName,'.ps'])
         Fig = figure('PaperSize',[50 50],'PaperUnits','inches','resize','on', 'visible','off');
         Fig = PlotMeans(MeasuredF,TimeScale,Selected,Properties,Bits,ColorArg,Fig,0,[Nickname,' ',num2str(Rep),' ',VarName],[-50,90], [min(0,min(MeasuredF(:))), max(2^Bits-1,max(MeasuredF(:)))]);
