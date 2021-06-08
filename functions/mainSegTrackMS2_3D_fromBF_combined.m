@@ -56,6 +56,7 @@ catch
         Divisions = 1;
         Spots = 0;
         MedFilt = 3; %%3 in px
+        GaussFilt = 0; %GAUSSIAN FILTERING RADIUS
         InputLow = 0; %%0.1
         InputHigh = 1; % was 1
         LogRadius = 4./XYRes*0.4; %0.4 from HG's scripts
@@ -79,7 +80,7 @@ MaxL = 1;
 
 
 ChannelToTrack = 0; %TO DO, when two transcription channels
-if strcmp(Channel1,'his') | strcmp(Channel1,'nucmemb') || strcmp(Channel1,'memb')
+if strcmp(Channel1,'his') | strcmp(Channel1,'nucmemb') | strcmp(Channel1,'memb')
     ChannelToTrack = 1;
 end
 if strcmp(Channel2,'his') | strcmp(Channel2,'nucmemb') | strcmp(Channel2,'memb')
@@ -134,7 +135,7 @@ end
 
 for f = 1:Frames
     disp(['reading and segmenting f',num2str(f),'...']);
-    toThreshold0 = ReadSingleStack(reader,Channels,Slices,Frames0,Flip,From,ChannelToTrack,f);
+    toThreshold = ReadSingleStack(reader,Channels,Slices,Frames0,Flip,From,ChannelToTrack,f);
     if Membranes
         toThreshold = imresize3(toThreshold,[Width,Height,round(Slices*ZRes/XYRes)]);
     end
@@ -146,19 +147,19 @@ for f = 1:Frames
     else
         %added filter to remove vitelline membrane when signal is very low
         if strcmp(Channel1,'mean') == 1 && ChannelToTrack ==1
-            InputHigh = 0.5;
             toThreshold = imgaussfilt3(toThreshold,1);
-            MaskVitMemb = imbinarize(toThreshold./max(toThreshold(:)));
-            SE =strel('sphere',2);
-            MaskVitMemb = imdilate(MaskVitMemb,SE);
-            toThreshold(MaskVitMemb) = 0;
+            InputHigh = 0.5;
+%             MaskVitMemb = imbinarize(toThreshold./max(toThreshold(:)));
+%             SE =strel('sphere',2);
+%             MaskVitMemb = imdilate(MaskVitMemb,SE);
+%             toThreshold(MaskVitMemb) = 0;
         end
-        [toThreshold] = Filter_3D(toThreshold0, MedFilt, 'off');
-            toThreshold = imgaussfilt3(toThreshold,2);
+        [toThreshold] = Filter_3D(toThreshold, MedFilt, 'off');
+        if GaussFilt ~= 0
+        	toThreshold = imgaussfilt3(toThreshold,GaussFilt);
+        end
         [toThreshold] = ContrastMSD_3D(toThreshold,InputLow, InputHigh,Bits,'off');
-         %figure;imagesc(max(toThreshold,[],3))
         [Dummy1 ,Dummy2 , Dummy3] = SegmentEmbryo_3D(toThreshold,LogRadius, @ThresLabNBs_3D, num2cell([RemoveSize DiskSize WatershedParameter RemoveSize ThresLevel Thicken]),'off',[XYRes,XYRes,ZRes]);
-        %subplot(133);imagesc(max(Dummy1,[],3))
     end
     toTrack(:,:,:,f) = Dummy1;
     Segmented_RGB(:,:,:,f) = Dummy2(:,:,:,1);
