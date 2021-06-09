@@ -156,6 +156,7 @@ function[] = CompareMeans(SelectedN,Which,Info, PathPlots,Exps, Selections, Mean
             if strcmp(WhichComp,'mean')
                 [~,Time0] = min(abs(TimeScale));
                 Norm = (MeasuredF)./nanmean(MeasuredF(max(1,Time0),:)); % #############################
+                Norm = (MeasuredF).*(2.^(12-Bits)); % #############################
                 %Norm = (MeasuredF-Baseline').*Baseline(1)./Baseline'.*(2.^(12-Bits));
             end
             Norm(Norm==0) = NaN;
@@ -165,7 +166,7 @@ function[] = CompareMeans(SelectedN,Which,Info, PathPlots,Exps, Selections, Mean
             if PlotS
                 mkdir([PathPlots,'/PlotsSelected/'])
                 [BurstNum,BurstLength,BurstPeriod,BurstPeak,BurstMax,OffTimeAll,BurstSize] = CountBursts(Norm,OnOff, Selected,minOn,SplitEarlyF,TimeRes);
-                PlotSelected(Selected,TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathPlots,'/PlotsSelected/',File,'_selected_',Selection,'.ps']);
+                PlotSelected(Selected,TimeScale,Baseline,MeasuredF,MedFilt,OnOff,Properties,BurstPeak,TimeRes,Bits,nc14, Delay,Limits,[PathPlots,'/PlotsSelected/',File,'_selected_',Selection,'.ps'],{});
             end
 
              % count only cells with onsets in the time being plotted
